@@ -16,7 +16,7 @@ using Windows.Foundation.Collections;
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
-namespace ProjetFinSession
+namespace ProjetFinDeSession2024
 {
     /// <summary>
     /// An empty window that can be used on its own or navigated to within a Frame.
@@ -30,24 +30,7 @@ namespace ProjetFinSession
 
         private void myButton_Click(object sender, RoutedEventArgs e)
         {
-            
-        }
-
-        private async void navView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
-        {
-            var item = (NavigationViewItem)args.SelectedItem;
-            Console.WriteLine(item.Name);
-            switch (item.Name)
-            {
-                case "nvAffichage":
-                    //mainFrame.Navigate(typeof(Page_Affichage));
-                    break;
-                case "nvStatistique":
-                    //mainFrame.Navigate(typeof(Page_Statistique));
-                    break;
-                default:
-                    break;
-            }
+            myButton.Content = "Clicked";
         }
     }
 }

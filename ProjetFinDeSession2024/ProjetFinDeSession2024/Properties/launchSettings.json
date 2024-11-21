@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "ProjetFinDeSession2024 (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "ProjetFinDeSession2024 (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
