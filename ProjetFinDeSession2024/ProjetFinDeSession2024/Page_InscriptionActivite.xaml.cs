@@ -19,28 +19,13 @@ using Windows.Foundation.Collections;
 namespace ProjetFinDeSession2024
 {
     /// <summary>
-    /// An empty window that can be used on its own or navigated to within a Frame.
+    /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class MainWindow : Window
+    public sealed partial class Page_InscriptionActivite : Page
     {
-        public MainWindow()
+        public Page_InscriptionActivite()
         {
             this.InitializeComponent();
-            //mainFrame.Navigate(typeof(Page_Affichage));
-        }
-
-        private async void navView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
-        {
-            var item = (NavigationViewItem)args.SelectedItem;
-            Console.WriteLine(item.Name);
-            switch (item.Name)
-            {
-                case "nvAffichage":
-                    //mainFrame.Navigate(typeof(Page_Affichage));
-                    break;
-                default:
-                    break;
-            }
         }
     }
 }
