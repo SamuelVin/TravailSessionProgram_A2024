@@ -21,12 +21,15 @@ namespace ProjetFinDeSession2024
     /// <summary>
     /// An empty window that can be used on its own or navigated to within a Frame.
     /// </summary>
+    /// 
+
+    // Samuel Vinette / Créer le 2024-12-27 14:00 / Dernière modification: 2024-12-27 14:32
     public sealed partial class MainWindow : Window
     {
         public MainWindow()
         {
             this.InitializeComponent();
-            //mainFrame.Navigate(typeof(Page_Affichage));
+            mainFrame.Navigate(typeof(Page_InscriptionActivite));
         }
 
         private async void navView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
@@ -36,7 +39,10 @@ namespace ProjetFinDeSession2024
             switch (item.Name)
             {
                 case "nvAffichage":
-                    //mainFrame.Navigate(typeof(Page_Affichage));
+                    mainFrame.Navigate(typeof(Page_InscriptionActivite));
+                    break;
+                case "nvConnexion":
+                    mainFrame.Navigate(typeof(Page_Connexion));
                     break;
                 default:
                     break;

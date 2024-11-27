@@ -8,7 +8,19 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    <!-- Samuel Vinette / Créer le 2024-12-27 13:10 / Dernière modification: 2024-12-27 13:32 -->
     <Grid>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBox x:Name="txtbox_utilisateur" Header="Numéro d’identification" PlaceholderText="Utilisateur"/>
+            <PasswordBox x:Name="txtbox_motdepasse" Header="Mot de passe" />
+            <Button x:Name="bt_connexion" Content="Se connecter" Click="bt_connexion_Click" Margin="0,10,10,0"/>
 
+            <Button x:Name="bt_deconnecter" Content="Se déconneter" Click="bt_deconnecter_Click" Margin="0,10,10,0"/>
+            
+            <Button x:Name="bt_testcon" Content="Voir connexion" Click="bt_testcon_Click" Margin="0,10,10,0"/>
+            <TextBlock x:Name="txtbloc_reussi" Text="Vous êtes connecté"  Visibility="Collapsed" Foreground="Green"/>
+            <TextBlock x:Name="txtbloc_echouer" Text="Vous êtes déconnecté"  Visibility="Collapsed"  Foreground="Red"/>
+        </StackPanel>
+        
     </Grid>
 </Page>

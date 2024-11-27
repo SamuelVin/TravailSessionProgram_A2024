@@ -7,13 +7,17 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <NavigationView PaneDisplayMode="Top" x:Name="navView" SelectionChanged="navView_SelectionChanged">
+    <!-- Samuel Vinette / Créer le 2024-12-27 13:10 / Dernière modification: 2024-12-27 14:32 -->
+    
+    <NavigationView PaneDisplayMode="Left" x:Name="navView" SelectionChanged="navView_SelectionChanged">
         <NavigationView.MenuItems>
             <NavigationViewItemHeader Content="Gestion des produits"/>
             <NavigationViewItemSeparator />
             <NavigationViewItem Content="Liste" x:Name="nvAffichage" Icon="List"/>
             <NavigationViewItem Content="Statistique" x:Name="nvStatistique" Icon="Filter"/>
             <NavigationViewItem Content="Ajouter" x:Name="nvAjouter" Icon="Add"/>
+            <NavigationViewItemSeparator />
+            <NavigationViewItem Content="Connexion" x:Name="nvConnexion" Icon="Account"/>
         </NavigationView.MenuItems>
 
         <Frame x:Name="mainFrame" />
