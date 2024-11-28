@@ -7,56 +7,54 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-// Samuel Vinette / Créer le 2024-12-27 13:40 / Dernière modification: 2024-12-27 13:57
+// Samuel Vinette / Créer le 2024-11-28 15:36 / Dernière modification: 2024-11-28 15:53
 
 namespace ProjetFinDeSession2024
 {
-    class SingletonListe_Activite
+    class SingletonListe_Seance
     {
-        ObservableCollection<Activite> liste;
-        static SingletonListe_Activite instance = null;
+        ObservableCollection<Seance> liste;
+        static SingletonListe_Seance instance = null;
 
-        public SingletonListe_Activite()
+        public SingletonListe_Seance()
         {
-            liste = new ObservableCollection<Activite>();
+            liste = new ObservableCollection<Seance>();
 
             // Pour ce connecter
             MySqlConnection con = new MySqlConnection("Server=cours.cegep3r.info;Database=420345ri_gr00002_2260734-samuel-vinette;Uid=2260734;Pwd=2260734;");
             MySqlCommand commande = con.CreateCommand();
             commande.Connection = con;
-            commande.CommandText = "Select * from activite";
+            commande.CommandText = "Select * from seance";
             con.Open();
             commande.Prepare();
             MySqlDataReader r = commande.ExecuteReader();
 
             while (r.Read())
             {
-                string nom = r["nom"].ToString();
-                string categorie = r["categorie"].ToString();
-                int cout_organisation = int.Parse(r["cout_organisation"].ToString());
-                int cout_vente = int.Parse(r["cout_vente"].ToString());
+                DateOnly date = DateOnly.Parse(r["date"].ToString());
+                TimeOnly heure = TimeOnly.Parse(r["heure"].ToString());
 
-                liste.Add(new Activite(nom, categorie, cout_organisation, cout_vente));
+                liste.Add(new Seance(date, heure));
             }
             con.Close();
         }
 
-        public static SingletonListe_Activite getInstance()
+        public static SingletonListe_Seance getInstance()
         {
             if (instance == null)
-                instance = new SingletonListe_Activite();
+                instance = new SingletonListe_Seance();
 
             return instance;
         }
 
         // Retourner equipe
-        public Activite getActivite(int position)
+        public Seance getSeance(int position)
         {
             return liste[position];
         }
 
         // Retourner liste equipe
-        public ObservableCollection<Activite> getListe()
+        public ObservableCollection<Seance> getListe()
         {
             liste.Clear();
 
@@ -64,27 +62,51 @@ namespace ProjetFinDeSession2024
             MySqlConnection con = new MySqlConnection("Server=cours.cegep3r.info;Database=420345ri_gr00002_2260734-samuel-vinette;Uid=2260734;Pwd=2260734;");
             MySqlCommand commande = con.CreateCommand();
             commande.Connection = con;
-            commande.CommandText = "Select * from activite";
+            commande.CommandText = "Select * from seance";
             con.Open();
             commande.Prepare();
             MySqlDataReader r = commande.ExecuteReader();
 
             while (r.Read())
             {
-                string nom = r["nom"].ToString();
-                string categorie = r["categorie"].ToString();
-                int cout_organisation = int.Parse(r["cout_organisation"].ToString());
-                int cout_vente = int.Parse(r["cout_vente"].ToString());
+                DateOnly date = DateOnly.Parse(r["date"].ToString());
+                TimeOnly heure = TimeOnly.Parse(r["heure"].ToString());
 
-                liste.Add(new Activite(nom, categorie, cout_organisation, cout_vente));
+                liste.Add(new Seance(date, heure));
             }
-
             con.Close();
+
+            return liste;
+        }
+
+        public ObservableCollection<Seance> getListe_DeActivite(int id_activite)
+        {
+            liste.Clear();
+
+            // Pour ce connecter
+            MySqlConnection con = new MySqlConnection("Server=cours.cegep3r.info;Database=420345ri_gr00002_2260734-samuel-vinette;Uid=2260734;Pwd=2260734;");
+            MySqlCommand commande = con.CreateCommand();
+            commande.Connection = con;
+            commande.CommandText = "Select * from seance where id_activite = @id_activite";
+            commande.Parameters.AddWithValue("@id_activite", id_activite);
+            con.Open();
+            commande.Prepare();
+            MySqlDataReader r = commande.ExecuteReader();
+
+            while (r.Read())
+            {
+                DateOnly date = DateOnly.Parse(r["date"].ToString());
+                TimeOnly heure = TimeOnly.Parse(r["heure"].ToString());
+
+                liste.Add(new Seance(date, heure));
+            }
+            con.Close();
+
             return liste;
         }
 
         // Ajouter equiper
-        public bool ajouterActivite(string nom, string categorie, int cout_organisation, int cout_vente)
+        public bool ajouterSeance(DateOnly date, TimeOnly heure)
         {
             // Pour ce connecter
             MySqlConnection con = new MySqlConnection("Server=cours.cegep3r.info;Database=420345ri_gr00002_2260734-samuel-vinette;Uid=2260734;Pwd=2260734;");
@@ -93,18 +115,16 @@ namespace ProjetFinDeSession2024
             {
                 MySqlCommand commande = new MySqlCommand();
                 commande.Connection = con;
-                commande.CommandText = "INSERT INTO activite (nom, categorie, cout_organisation, cout_vente) VALUES (@nom, @categorie, @cout_organisation, @cout_vente)";
-                commande.Parameters.AddWithValue("@nom", nom);
-                commande.Parameters.AddWithValue("@categorie", categorie);
-                commande.Parameters.AddWithValue("@cout_organisation", cout_organisation);
-                commande.Parameters.AddWithValue("@cout_vente", cout_vente);
+                commande.CommandText = "INSERT INTO seance (date, heure) VALUES (@date, @heure)";
+                commande.Parameters.AddWithValue("@date", date);
+                commande.Parameters.AddWithValue("@heure", heure);
 
                 con.Open();
                 commande.Prepare();
                 commande.ExecuteNonQuery();
 
                 con.Close();
-                liste.Add(new Activite(nom, categorie, cout_organisation, cout_vente));
+                liste.Add(new Seance(date, heure));
                 return true;
             }
             catch (Exception ex)
@@ -116,7 +136,7 @@ namespace ProjetFinDeSession2024
         }
 
         // Supprimer equiper
-        public bool supprimerActivite(int position)
+        public bool supprimerSeance(int position)
         {
             liste.RemoveAt(position);
             // Pour ce connecter
@@ -126,7 +146,7 @@ namespace ProjetFinDeSession2024
             {
                 MySqlCommand commande1 = new MySqlCommand();
                 commande1.Connection = con;
-                commande1.CommandText = "DELETE FROM activite WHERE id = @id";
+                commande1.CommandText = "DELETE FROM seance WHERE id = @id";
                 commande1.Parameters.AddWithValue("@id", position + 1);
 
                 con.Open();

@@ -31,6 +31,40 @@ namespace ProjetFinDeSession2024
         {
             this.InitializeComponent();
             liste = SingletonListe_Activite.getInstance().getListe();
+
+            if (SingletonConnexion.getInstance().isConnected() == true)
+            {
+                stk_connecter.Visibility = Visibility.Visible;
+                bt_ajouter.Visibility = Visibility.Visible;
+                bt_supprimer.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void bt_supprimer_Click(object sender, RoutedEventArgs e)
+        {
+            int selected_index = lv_list.SelectedIndex;
+            bool operation_reussi = SingletonListe_Activite.getInstance().supprimerActivite(selected_index);
+            if(operation_reussi == true)
+            {
+                txtblock_erreur.Visibility = Visibility.Collapsed;
+                txtblock_reussi.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                txtblock_erreur.Visibility = Visibility.Visible;
+                txtblock_reussi.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void bt_ajouter_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(PageAdmin_AjoutActivite));
+        }
+
+        private void bt_seance_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(Page_InscriptionSeance), lv_list.SelectedIndex+1);
+            //this.Frame.Navigate(typeof(Page_InscriptionSeance));
         }
     }
 }

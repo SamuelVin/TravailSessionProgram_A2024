@@ -9,59 +9,80 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <!-- Samuel Vinette / Créer le 2024-12-27 14:00 / Dernière modification: 2024-12-27 14:32 -->
-    
-    <GridView x:Name="lv_list" ItemsSource="{x:Bind liste}">
-        <GridView.ItemTemplate>
-            <DataTemplate x:DataType="local:Activite">
-                <StackPanel MinHeight="50" MinWidth="250" Background="LightGray" Margin="10,10,0,0" CornerRadius="10" Width="300" Height="170">
-                    <TextBlock HorizontalAlignment="Center" 
-                               FontSize="20" 
-                               TextWrapping="Wrap" 
-                               Margin="5" 
-                               Height="25"
-                               Text="{x:Bind Nom , Mode=OneWay}"/>
-                    <TextBlock HorizontalAlignment="Center" 
-                               FontSize="15" 
-                               TextWrapping="Wrap" 
-                               Margin="2" 
-                               Height="30"
-                               Text="{x:Bind Categorie, Mode=OneWay}"/>
-                    <StackPanel Height="30" Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBlock 
-                                FontSize="15" 
-                                Margin="2,0,0,0"
-                                Text="Coût d'organisation:"/>
-                        <TextBlock 
-                                FontSize="15" 
-                                Margin="2,0,0,0" 
-                                Text="{x:Bind Cout_Organization, Mode=OneWay}"/>
-                        <TextBlock 
-                                FontSize="15" 
-                                Margin="2,0,0,0"
-                                Text="$"/>
-                    </StackPanel>
-                    <StackPanel Height="30" Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBlock 
-                                FontSize="15" 
-                                Margin="2,0,0,0"
-                                Text="Coût de vente:"/>
-                        <TextBlock 
-                                FontSize="15" 
-                                Margin="2,0,0,0" 
-                                Text="{x:Bind Cout_Vente, Mode=OneWay}"/>
-                        <TextBlock 
-                                FontSize="15" 
-                                Margin="2,0,0,0"
-                                Text="$"/>
-                    </StackPanel>
-                    
-                    <!-- Inscription et supprimer -->
-                    <StackPanel Height="30" Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Button x:Name="bt_inscrire" Width="90" Content="S'inscrire"/>
-                        <!--<Button x:Name="bt_supprimer" Width="40" Content="X" Background="Red" Visibility="Collapsed"/>-->
-                    </StackPanel>
-                </StackPanel>
-            </DataTemplate>
-        </GridView.ItemTemplate>
-    </GridView>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="12*" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel x:Name="stk_connecter" Grid.Row="0" Grid.Column="0" Margin="10" Orientation="Horizontal" Visibility="Visible">
+            <Button x:Name="bt_seance" Width="290" Content="Voir les séances de l'activité sélectionnée" Click="bt_seance_Click"/>
+            <Button x:Name="bt_ajouter" Content="Ajouter une activité" Background="#90EE90" Margin="10,0,0,0" Click="bt_ajouter_Click" Visibility="Collapsed"/>
+            <Button x:Name="bt_supprimer" Content="Supprimer l'activité sélectionnée" Background="#FF5C5C" Margin="10,0,0,0" Click="bt_supprimer_Click" Visibility="Collapsed"/>
+            <TextBlock x:Name="txtblock_erreur" Text="Il y a eu une erreur de suppression" Foreground="#FF5C5C" Visibility="Collapsed"/>
+            <TextBlock x:Name="txtblock_reussi" Text="Suppression réussi" Foreground="#90EE90" Visibility="Collapsed"/>
+        </StackPanel>
+
+        <ScrollViewer Grid.Row="1" Grid.Column="0">
+            <GridView x:Name="lv_list" ItemsSource="{x:Bind liste}">
+                <GridView.ItemTemplate>
+                    <DataTemplate x:DataType="local:Activite">
+                        <StackPanel MinHeight="50" MinWidth="250" Background="LightGray" Margin="10,10,0,0" CornerRadius="10" Width="300" Height="170">
+                            <TextBlock HorizontalAlignment="Center" 
+                                               FontSize="20" 
+                                               TextWrapping="Wrap" 
+                                               Margin="5" 
+                                               Height="25"
+                                               Text="{x:Bind Nom , Mode=OneWay}"/>
+                            <TextBlock HorizontalAlignment="Center" 
+                                               FontSize="15" 
+                                               TextWrapping="Wrap" 
+                                               Margin="2" 
+                                               Height="30"
+                                               Text="{x:Bind Categorie, Mode=OneWay}"/>
+                            <StackPanel Height="30" Orientation="Horizontal" HorizontalAlignment="Center">
+                                <TextBlock 
+                                                FontSize="15" 
+                                                Margin="2,0,0,0"
+                                                Text="Coût d'organisation:"/>
+                                <TextBlock 
+                                                FontSize="15" 
+                                                Margin="2,0,0,0" 
+                                                Text="{x:Bind Cout_Organization, Mode=OneWay}"/>
+                                <TextBlock 
+                                                FontSize="15" 
+                                                Margin="2,0,0,0"
+                                                Text="$"/>
+                            </StackPanel>
+                            <StackPanel Height="30" Orientation="Horizontal" HorizontalAlignment="Center">
+                                <TextBlock 
+                                                FontSize="15" 
+                                                Margin="2,0,0,0"
+                                                Text="Coût de vente:"/>
+                                <TextBlock 
+                                                FontSize="15" 
+                                                Margin="2,0,0,0" 
+                                                Text="{x:Bind Cout_Vente, Mode=OneWay}"/>
+                                <TextBlock 
+                                                FontSize="15" 
+                                                Margin="2,0,0,0"
+                                                Text="$"/>
+                            </StackPanel>
+
+                            <!-- Inscription et supprimer -->
+                            <StackPanel Height="30" Orientation="Horizontal" HorizontalAlignment="Center">
+                                <!--<Button x:Name="bt_seance" Width="120" Content="Voir les séances" Click="bt_seance_Click"/>-->
+                                <!--<Button x:Name="bt_supprimer" Width="40" Content="X" Background="Red" Visibility="Collapsed"/>-->
+                            </StackPanel>
+                        </StackPanel>
+                    </DataTemplate>
+                </GridView.ItemTemplate>
+            </GridView>
+        </ScrollViewer>
+    </Grid>
 </Page>

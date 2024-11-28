@@ -8,7 +8,21 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <TextBox x:Name="txtbox_parametre1" Header="Nom de l'activité" PlaceholderText="Ex: Badminton"/>
+        <TextBlock x:Name="txt_Erreur1" Foreground="#FF5C5C"/>
 
-    </Grid>
+        <TextBox x:Name="txtbox_parametre2" Header="Coût de l'orginasion" PlaceholderText="Ex: 10$"/>
+        <TextBlock x:Name="txt_Erreur2" Foreground="#FF5C5C"/>
+        
+        <TextBox x:Name="txtbox_parametre3" Header="Coût de vente" PlaceholderText="Ex: 5$"/>
+        <TextBlock x:Name="txt_Erreur3" Foreground="#FF5C5C"/>
+        
+        <TextBox x:Name="txtbox_parametre4" Header="La catégorie de l'activité" PlaceholderText="Ex: Sport"/>
+        <TextBlock x:Name="txt_Erreur4" Foreground="#FF5C5C"/>
+
+        <Button x:Name="bt_ajouter" Content="Ajouter" Click="bt_ajouter_Click"/>
+        <TextBlock x:Name="txt_Erreur5" Foreground="#FF5C5C"/>
+        <TextBlock x:Name="txt_Reussi5" Foreground="#90EE90"/>
+    </StackPanel>
 </Page>
