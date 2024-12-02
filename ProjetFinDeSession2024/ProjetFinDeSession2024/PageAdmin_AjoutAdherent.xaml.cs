@@ -16,16 +16,34 @@ using Windows.Foundation.Collections;
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
+// Marco Petiquay / Créée le 2024-11-30 14:27 / Dernière modification:
+
 namespace ProjetFinDeSession2024
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class PageAdmin_AjoutAdherent : Page
+    public sealed partial class PageAdmin_AjoutAdherent : ContentDialog
     {
+        bool fermerDialogue = true;
         public PageAdmin_AjoutAdherent()
         {
             this.InitializeComponent();
+        }
+        private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+
+        }
+
+        private void ContentDialog_Closing(ContentDialog sender, ContentDialogClosingEventArgs args)
+        {
+            if (args.Result == ContentDialogResult.Primary)
+            {
+                if (fermerDialogue == false)
+                    args.Cancel = true;
+            }
+            else
+                args.Cancel = false;
         }
     }
 }

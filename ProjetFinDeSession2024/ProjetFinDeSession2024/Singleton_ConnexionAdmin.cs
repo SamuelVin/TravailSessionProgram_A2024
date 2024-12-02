@@ -54,10 +54,13 @@ namespace ProjetFinDeSession2024
 
                 while (r.Read())
                 {
-                    if(utilisateur == r["utilisateur"].ToString() && motdepasse == r["motdepasse"].ToString())
+                    if (utilisateur == r["utilisateur"].ToString() && motdepasse == r["motdepasse"].ToString())
                     {
                         con.Close();
                         connected = true;
+
+                        // Deconnecte le compte Adherent si connecté
+                        SingletonConnexionAdherant.getInstance().Deconnexion();
                         return true;
                     }
                 }
@@ -76,7 +79,7 @@ namespace ProjetFinDeSession2024
         // Déconnexion
         public bool seDeconnecter()
         {
-            connected= false;
+            connected = false;
             return true;
         }
     }

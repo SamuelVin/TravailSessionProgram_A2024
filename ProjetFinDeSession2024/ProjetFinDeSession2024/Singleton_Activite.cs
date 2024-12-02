@@ -58,7 +58,6 @@ namespace ProjetFinDeSession2024
         // Retourner liste equipe
         public ObservableCollection<Activite> getListe()
         {
-            liste.Clear();
 
             // Pour ce connecter
             MySqlConnection con = new MySqlConnection("Server=cours.cegep3r.info;Database=420345ri_gr00002_2260734-samuel-vinette;Uid=2260734;Pwd=2260734;");
@@ -142,5 +141,12 @@ namespace ProjetFinDeSession2024
                 return false;
             }
         }
+        /*
+        public void RefreshBD()
+        {
+            liste.Clear();
+            getListe();
+        }
+        */
     }
 }

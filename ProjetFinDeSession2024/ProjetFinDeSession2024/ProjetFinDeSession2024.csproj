@@ -12,6 +12,7 @@
     <EnableMsixTooling>true</EnableMsixTooling>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="DialogueAdherentsConnexion.xaml" />
     <None Remove="PageAdmin_AjoutActivite.xaml" />
     <None Remove="PageAdmin_AjoutAdherent.xaml" />
     <None Remove="PageAdmin_AjoutSeance.xaml" />
@@ -78,6 +79,14 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="Page_Connexion.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Pages\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="DialogueAdherentsConnexion.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

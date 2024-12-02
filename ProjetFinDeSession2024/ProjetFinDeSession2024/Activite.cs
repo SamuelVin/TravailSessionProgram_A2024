@@ -20,7 +20,7 @@ namespace ProjetFinDeSession2024
         public Activite(string nom, string categorie, int cout_organisation, int cout_vente)
         {
             this.nom = nom;
-            this.categorie= categorie;
+            this.categorie = categorie;
             this.cout_organisation = cout_organisation;
             this.cout_vente = cout_vente;
         }
@@ -51,6 +51,6 @@ namespace ProjetFinDeSession2024
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string propertyName = null)
-            => this.PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            => PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

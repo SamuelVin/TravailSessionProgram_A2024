@@ -7,6 +7,7 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -42,6 +43,63 @@ namespace ProjetFinDeSession2024
                     mainFrame.Navigate(typeof(Page_InscriptionActivite));
                     break;
                 case "nvConnexion":
+
+                    // La connexion de l'adherent/l'utilisateur fonctionne, voici le mot de passe: BG-2005-473
+                    // Pour l'instant, le programme se connecte sur ma base de donnée dans la classe SingletonConnexionAdherant()
+                    // Si tu regarde dans Partie Publique, on aura besoin que l'Adhérent puisse pouvoir se connecter
+                    // pour s'inscrire dans une activité/séance. Par contre, il faudra checker plus-tard comme quoi il ne peut pas
+                    // s'inscrire dans la même activité/séance deux fois.
+
+                    // Si il n'y a aucun adhérent de connectee, la boite de dialogue DialogueAdherentsConnexion() va s'afficher.
+                    if (!(SingletonConnexionAdherant.getInstance().GetConnexion()))
+                    {
+
+                        DialogueAdherentsConnexion dialog = new DialogueAdherentsConnexion();
+
+                        dialog.XamlRoot = this.Content.XamlRoot;
+                        dialog.PrimaryButtonText = "Confirmer";
+                        dialog.CloseButtonText = "Annuler";
+                        dialog.Title = "Connexion";
+                        dialog.DefaultButton = ContentDialogButton.Close;
+
+                        ContentDialogResult resultat = await dialog.ShowAsync();
+
+                        if (SingletonConnexionAdherant.getInstance().GetConnexion())
+                        {
+                            navItemHeaderFooter.Content = "Bienvenu " + SingletonConnexionAdherant.getInstance().GetAdherent().NomPrenom();
+                            navItemSeparatorUser.Visibility = Visibility.Visible;
+                            nvConnexion.Content = "Se déconnecter";
+                        }
+                    }
+
+                    // Si il y a un adhérent de connecter, une boite de dialogue de deconnexion va s'afficher.
+                    else
+                    {
+                        ContentDialog dialog = new ContentDialog();
+                        dialog.XamlRoot = this.Content.XamlRoot;
+                        dialog.Title = "Déconnexion";
+                        dialog.PrimaryButtonText = "Oui";
+                        dialog.CloseButtonText = "Non";
+                        dialog.DefaultButton = ContentDialogButton.Primary;
+                        dialog.Content = "Voulez-vous vraiment vous déconnecter?";
+
+                        ContentDialogResult resultat = await dialog.ShowAsync();
+
+                        if (resultat == ContentDialogResult.Primary)
+                        {
+                            navItemHeaderFooter.Content = null;
+                            navItemSeparatorUser.Visibility= Visibility.Collapsed;
+                            nvConnexion.Content = "Se connecter";
+                            SingletonConnexionAdherant.getInstance().Deconnexion();
+                        }
+
+                    }
+                    
+                    break;
+                case "nvGestion":
+                    
+                    break;
+                case "nvAdmin":
                     mainFrame.Navigate(typeof(Page_Connexion));
                     break;
                 default:
