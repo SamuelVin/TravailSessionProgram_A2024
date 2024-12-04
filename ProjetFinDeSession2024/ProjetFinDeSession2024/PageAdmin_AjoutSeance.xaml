@@ -8,7 +8,15 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <DatePicker x:Name="paramete1_date" Header="Date de la séance"/>
+        <TextBlock x:Name="txt_Erreur1" Foreground="#FF5C5C"/>
 
-    </Grid>
+        <TimePicker x:Name="paramete2_heure" Header="Heure de la séance"/>
+        <TextBlock x:Name="txt_Erreur2" Foreground="#FF5C5C"/>
+
+        <Button x:Name="bt_ajouter" Content="Ajouter" Click="bt_ajouter_Click"/>
+        <TextBlock x:Name="txt_Erreur5" Foreground="#FF5C5C"/>
+        <TextBlock x:Name="txt_Reussi5" Foreground="#90EE90"/>
+    </StackPanel>
 </Page>

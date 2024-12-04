@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Design;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,7 +32,7 @@ namespace ProjetFinDeSession2024
 
             while (r.Read())
             {
-                DateOnly date = DateOnly.Parse(r["date"].ToString());
+                DateOnly date = DateOnly.Parse(r["date"].ToString().Substring(0, 10));
                 TimeOnly heure = TimeOnly.Parse(r["heure"].ToString());
 
                 liste.Add(new Seance(date, heure));
@@ -69,7 +70,7 @@ namespace ProjetFinDeSession2024
 
             while (r.Read())
             {
-                DateOnly date = DateOnly.Parse(r["date"].ToString());
+                DateOnly date = DateOnly.Parse(r["date"].ToString().Substring(0, 10));
                 TimeOnly heure = TimeOnly.Parse(r["heure"].ToString());
 
                 liste.Add(new Seance(date, heure));
@@ -95,7 +96,7 @@ namespace ProjetFinDeSession2024
 
             while (r.Read())
             {
-                DateOnly date = DateOnly.Parse(r["date"].ToString());
+                DateOnly date = DateOnly.Parse(r["date"].ToString().Substring(0, 10));
                 TimeOnly heure = TimeOnly.Parse(r["heure"].ToString());
 
                 liste.Add(new Seance(date, heure));
