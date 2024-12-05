@@ -22,6 +22,7 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel x:Name="stk_connecter" Grid.Row="0" Grid.Column="0" Margin="10" Orientation="Horizontal" Visibility="Visible">
+            <Button x:Name="bt_seance" Width="290" Content="S'inscrire à la séance sélectionnée" Click="bt_seance_Click" Visibility="Collapsed"/>
             <TextBlock x:Name="txtblock_aucuneseance" Text="Il n'y a auncune séance" Foreground="#FF5C5C" Margin="0,0,10,0" Visibility="Collapsed"/>
             <Button x:Name="bt_ajouter" Content="Ajouter une séance pour l'activité sélectionnée" Background="#90EE90" Visibility="Collapsed" Click="bt_ajouter_Click"/>
             <Button x:Name="bt_supprimer" Content="Supprimer la séance sélectionnée" Background="#FF5C5C" Margin="10,0,0,0" Visibility="Collapsed" Click="bt_supprimer_Click"/>
@@ -46,10 +47,17 @@
                                            Margin="2" 
                                            Height="30"
                                            Text="{x:Bind Heure, Mode=OneWay}"/>
+                            <TextBlock HorizontalAlignment="Center" 
+                                           FontSize="15" 
+                                           TextWrapping="Wrap" 
+                                           Margin="2" 
+                                           Height="30"
+                                           x:Name="the_id_of_seance"
+                                           Visibility="Collapsed"
+                                           Text="{x:Bind Id, Mode=OneWay}"/>
 
                             <!-- Inscription et supprimer -->
                             <StackPanel Height="30" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Button x:Name="bt_inscription" Width="90" Content="S'inscrire"/>
                                 <!--<Button x:Name="bt_supprimer" Width="40" Content="X" Background="Red" Visibility="Collapsed"/>-->
                             </StackPanel>
                         </StackPanel>

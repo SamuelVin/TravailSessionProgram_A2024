@@ -123,7 +123,7 @@ namespace ProjetFinDeSession2024
             {
                 DateOnly par_DateOnly = DateOnly.Parse(par1);
                 TimeOnly par_TimeOnly = TimeOnly.Parse(par2);
-                bool operation_reussi = SingletonListe_Seance.getInstance().ajouterSeance(par_DateOnly, par_TimeOnly);
+                bool operation_reussi = SingletonListe_Seance.getInstance().ajouterSeance(id_activite, par_DateOnly, par_TimeOnly);
 
                 if (operation_reussi == true)
                 {

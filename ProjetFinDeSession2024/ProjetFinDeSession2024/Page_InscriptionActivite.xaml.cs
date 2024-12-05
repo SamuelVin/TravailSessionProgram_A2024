@@ -32,7 +32,7 @@ namespace ProjetFinDeSession2024
             this.InitializeComponent();
             liste = SingletonListe_Activite.getInstance().getListe();
 
-            if (SingletonConnexion.getInstance().isConnected() == true)
+            if (SingletonConnexion.getInstance().isAdmin() == true)
             {
                 stk_connecter.Visibility = Visibility.Visible;
                 bt_ajouter.Visibility = Visibility.Visible;
@@ -63,8 +63,10 @@ namespace ProjetFinDeSession2024
 
         private void bt_seance_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(Page_InscriptionSeance), lv_list.SelectedIndex+1);
-            //this.Frame.Navigate(typeof(Page_InscriptionSeance));
+            if(lv_list.SelectedIndex != -1) 
+            {
+                this.Frame.Navigate(typeof(Page_InscriptionSeance), lv_list.SelectedIndex+1);
+            }
         }
     }
 }

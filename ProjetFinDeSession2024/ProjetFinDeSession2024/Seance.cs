@@ -12,13 +12,21 @@ namespace ProjetFinDeSession2024
 {
     internal class Seance : INotifyPropertyChanged
     {
+        int id;
         DateOnly date;
         TimeOnly heure;
 
-        public Seance(DateOnly date, TimeOnly heure)
+        public Seance(int id, DateOnly date, TimeOnly heure)
         {
+            this.id = id;
             this.date = date;
             this.heure = heure;
+        }
+
+        public int Id
+        {
+            get { return id; }
+            set { id = value; }
         }
 
         public DateOnly Date

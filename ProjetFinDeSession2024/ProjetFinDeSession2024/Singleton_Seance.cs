@@ -32,10 +32,11 @@ namespace ProjetFinDeSession2024
 
             while (r.Read())
             {
+                int id = int.Parse(r["id"].ToString());
                 DateOnly date = DateOnly.Parse(r["date"].ToString().Substring(0, 10));
                 TimeOnly heure = TimeOnly.Parse(r["heure"].ToString());
 
-                liste.Add(new Seance(date, heure));
+                liste.Add(new Seance(id, date, heure));
             }
             con.Close();
         }
@@ -70,10 +71,11 @@ namespace ProjetFinDeSession2024
 
             while (r.Read())
             {
+                int id = int.Parse(r["id"].ToString());
                 DateOnly date = DateOnly.Parse(r["date"].ToString().Substring(0, 10));
                 TimeOnly heure = TimeOnly.Parse(r["heure"].ToString());
 
-                liste.Add(new Seance(date, heure));
+                liste.Add(new Seance(id, date, heure));
             }
             con.Close();
 
@@ -96,10 +98,11 @@ namespace ProjetFinDeSession2024
 
             while (r.Read())
             {
+                int id = int.Parse(r["id"].ToString());
                 DateOnly date = DateOnly.Parse(r["date"].ToString().Substring(0, 10));
                 TimeOnly heure = TimeOnly.Parse(r["heure"].ToString());
 
-                liste.Add(new Seance(date, heure));
+                liste.Add(new Seance(id, date, heure));
             }
             con.Close();
 
@@ -107,7 +110,7 @@ namespace ProjetFinDeSession2024
         }
 
         // Ajouter equiper
-        public bool ajouterSeance(DateOnly date, TimeOnly heure)
+        public bool ajouterSeance(int id_activite, DateOnly date, TimeOnly heure)
         {
             // Pour ce connecter
             MySqlConnection con = new MySqlConnection("Server=cours.cegep3r.info;Database=420345ri_gr00002_2260734-samuel-vinette;Uid=2260734;Pwd=2260734;");
@@ -116,21 +119,23 @@ namespace ProjetFinDeSession2024
             {
                 MySqlCommand commande = new MySqlCommand();
                 commande.Connection = con;
-                commande.CommandText = "INSERT INTO seance (date, heure) VALUES (@date, @heure)";
-                commande.Parameters.AddWithValue("@date", date);
-                commande.Parameters.AddWithValue("@heure", heure);
+                commande.CommandText = "INSERT INTO seance (id_activite, date, heure) VALUES (@id_activite, @date, @heure)";
+                commande.Parameters.AddWithValue("@id_activite", id_activite.ToString());
+                commande.Parameters.AddWithValue("@date", date.ToString());
+                commande.Parameters.AddWithValue("@heure", heure.ToString()+":00");
 
                 con.Open();
                 commande.Prepare();
                 commande.ExecuteNonQuery();
 
                 con.Close();
-                liste.Add(new Seance(date, heure));
+                liste.Add(new Seance(0, date, heure));
                 return true;
             }
             catch (Exception ex)
             {
                 con.Close();
+                Debug.WriteLine("Error: " + ex.Message);
                 return false;
             }
 

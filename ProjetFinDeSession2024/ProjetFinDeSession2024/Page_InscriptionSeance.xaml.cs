@@ -34,16 +34,15 @@ namespace ProjetFinDeSession2024
             this.InitializeComponent();
             liste = SingletonListe_Seance.getInstance().getListe_DeActivite(0);
 
-            if (SingletonConnexion.getInstance().isConnected() == true)
+            if (SingletonConnexion.getInstance().isAdmin() == true)
             {
                 stk_connecter.Visibility = Visibility.Visible;
                 bt_ajouter.Visibility = Visibility.Visible;
                 bt_supprimer.Visibility = Visibility.Visible;
             }
-
-            if (SingletonConnexion.getInstance().isConnected() == true)
+            if (SingletonConnexion.getInstance().isAdmin() == false && SingletonConnexion.getInstance().isConnected() == true)
             {
-                stk_connecter.Visibility = Visibility.Visible;
+                bt_seance.Visibility = Visibility.Visible;
             }
         }
 
@@ -76,6 +75,71 @@ namespace ProjetFinDeSession2024
         private void bt_ajouter_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(PageAdmin_AjoutSeance), id_activite);
+        }
+
+        private void bt_seance_Click(object sender, RoutedEventArgs e)
+        {
+            bool operation_reussi = SingletonConnexion.getInstance().inscriptionSeance5();
+            Debug.WriteLine("op 1 - " + operation_reussi);
+            if (operation_reussi == true && lv_list.SelectedIndex != -1)
+            {
+                // Find the GridViewItem corresponding to the selected index
+                var selectedGridViewItem = lv_list.ContainerFromIndex(lv_list.SelectedIndex) as GridViewItem;
+
+                // Check if the GridViewItem is valid
+                if (selectedGridViewItem != null)
+                {
+                    // Find the StackPanel inside the GridViewItem (this is your item template)
+                    var selectedStackPanel = selectedGridViewItem.ContentTemplateRoot as StackPanel;
+
+                    if (selectedStackPanel != null)
+                    {
+                        // Now find the TextBlock named "the_id_of_seance" inside the StackPanel
+                        var idTextBlock = selectedStackPanel?.FindName("the_id_of_seance") as TextBlock;
+
+                        Debug.WriteLine("a " + selectedStackPanel);
+                        Debug.WriteLine("b " + idTextBlock);
+
+                        // Check if the TextBlock was found
+                        if (idTextBlock != null)
+                        {
+                            string idText = idTextBlock.Text;
+                            int seanceId = int.Parse(idText);  // Assuming the TextBlock contains an integer
+
+                            // Perform your operation
+                            operation_reussi = SingletonConnexion.getInstance().inscrire(seanceId);
+                            Debug.WriteLine("op 2 - " + operation_reussi + " id=" + seanceId);
+                        }
+                        else
+                        {
+                            Debug.WriteLine("TextBlock not found.");
+                        }
+                    }
+                    else
+                    {
+                        Debug.WriteLine("StackPanel not found.");
+                    }
+                }
+                Debug.WriteLine("op 3 - Done");
+
+                /*
+                var selectedStackPanel = lv_list.ContainerFromIndex(lv_list.SelectedIndex) as FrameworkElement;
+                //var selectedStackPanel = lv_list.ContainerFromIndex(lv_list.SelectedIndex) as StackPanel;
+                var idTextBlock = selectedStackPanel?.FindName("the_id_of_seance") as TextBlock;
+
+                Debug.WriteLine("a " + selectedStackPanel);
+                Debug.WriteLine("b " + idTextBlock);
+
+                if (idTextBlock != null)
+                {
+                    string idText = idTextBlock.Text;
+                    int seanceId = int.Parse(idText);
+                    operation_reussi = SingletonConnexion.getInstance().inscrire(seanceId);
+                    Debug.WriteLine("op 2 - " + operation_reussi);
+                }
+                Debug.WriteLine("op 3 - Done");
+                */
+            }
         }
     }
 }
