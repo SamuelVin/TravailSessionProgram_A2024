@@ -16,6 +16,8 @@
     <None Remove="PageAdmin_AjoutAdherent.xaml" />
     <None Remove="PageAdmin_AjoutSeance.xaml" />
     <None Remove="PageAdmin_Statistique.xaml" />
+    <None Remove="Page_AjoutCommentaire.xaml" />
+    <None Remove="Page_Commentaire.xaml" />
     <None Remove="Page_Connexion.xaml" />
     <None Remove="Page_InscriptionActivite.xaml" />
     <None Remove="Page_InscriptionSeance.xaml" />
@@ -45,6 +47,16 @@
   -->
   <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
     <ProjectCapability Include="Msix" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Page_AjoutCommentaire.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Page_Commentaire.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Page_InscriptionSeance.xaml">

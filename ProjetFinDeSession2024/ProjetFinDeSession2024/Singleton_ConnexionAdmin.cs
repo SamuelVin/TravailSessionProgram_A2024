@@ -45,6 +45,11 @@ namespace ProjetFinDeSession2024
             return administrateur;
         }
 
+        public int ConnectedId()
+        {
+            return connectedId;
+        }
+
         // Connexion
         public bool seConnecter(string utilisateur, string motdepasse)
         {
@@ -146,8 +151,12 @@ namespace ProjetFinDeSession2024
             return false;
         }
 
-        public bool inscrire(int id_seance)
+        public int inscrire(int id_seance)
         {
+            // 0 = erreur
+            // 1 = deja inscrit
+            // 2 = reussi
+
             // Pour ce connecter
             MySqlConnection con = new MySqlConnection("Server=cours.cegep3r.info;Database=420345ri_gr00002_2260734-samuel-vinette;Uid=2260734;Pwd=2260734;");
 
@@ -155,22 +164,46 @@ namespace ProjetFinDeSession2024
             {
                 MySqlCommand commande = new MySqlCommand();
                 commande.Connection = con;
-                commande.CommandText = "INSERT INTO adherentseance (id_adherent, id_seance) VALUES (@id_adherent, @id_seance)";
+                commande.CommandText = $"select * from adherentseance where id_adherent = @id_adherent and id_seance = @id_seance";
                 commande.Parameters.AddWithValue("@id_adherent", connectedId);
                 commande.Parameters.AddWithValue("@id_seance", id_seance);
 
                 con.Open();
                 commande.Prepare();
-                commande.ExecuteNonQuery();
+
+                MySqlDataReader r = commande.ExecuteReader();
+
+                while (r.Read())
+                {
+                    if (int.Parse(r["id_adherent"].ToString()) == connectedId)
+                    {
+                        if (int.Parse(r["id_seance"].ToString()) == id_seance)
+                        {
+                            con.Close();
+                            return 1;
+                        }
+                    }
+                }
+                con.Close();
+
+                MySqlCommand commande2 = new MySqlCommand();
+                commande2.Connection = con;
+                commande2.CommandText = "INSERT INTO adherentseance (id_adherent, id_seance) VALUES (@id_adherent, @id_seance)";
+                commande2.Parameters.AddWithValue("@id_adherent", connectedId);
+                commande2.Parameters.AddWithValue("@id_seance", id_seance);
+
+                con.Open();
+                commande2.Prepare();
+                commande2.ExecuteNonQuery();
 
                 con.Close();
-                return true;
+                return 2;
             }
             catch (Exception ex)
             {
                 con.Close();
-                Debug.WriteLine("Erreur: " + ex.Message);
-                return false;
+                Debug.WriteLine("Erreur: " + ex.Message + "\n ConnectId = " + connectedId);
+                return 0;
             }
         }
     }

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="ProjetFinDeSession2024.Page_AjoutCommentaire"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ProjetFinDeSession2024"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <TextBox x:Name="txtbox_parametre1" Header="Id Activité (a modifier)" PlaceholderText="Ex: 2"/>
+        <TextBlock x:Name="txt_Erreur1" Foreground="#FF5C5C"/>
+
+        <TextBox x:Name="txtbox_parametre2" Header="Commentaire" PlaceholderText="Ex: Wow"/>
+        <TextBlock x:Name="txt_Erreur2" Foreground="#FF5C5C"/>
+
+        <TextBox x:Name="txtbox_parametre3" Header="Note sur 5" PlaceholderText="Ex: 5"/>
+        <TextBlock x:Name="txt_Erreur3" Foreground="#FF5C5C"/>
+
+        <Button x:Name="bt_ajouter" Content="Ajouter" Click="bt_ajouter_Click"/>
+        <TextBlock x:Name="txt_Erreur5" Foreground="#FF5C5C"/>
+        <TextBlock x:Name="txt_Reussi5" Foreground="#90EE90"/>
+    </StackPanel>
+</Page>

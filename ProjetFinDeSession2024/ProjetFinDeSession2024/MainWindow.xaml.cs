@@ -41,6 +41,13 @@ namespace ProjetFinDeSession2024
                 case "nvAffichage":
                     mainFrame.Navigate(typeof(Page_InscriptionActivite));
                     break;
+                
+                case "nvAjouter":
+                    //mainFrame.Navigate(typeof(Page_Connexion));
+                    break;
+                case "nvCommentaire":
+                    mainFrame.Navigate(typeof(Page_Commentaire));
+                    break;
                 case "nvConnexion":
                     mainFrame.Navigate(typeof(Page_Connexion));
                     break;

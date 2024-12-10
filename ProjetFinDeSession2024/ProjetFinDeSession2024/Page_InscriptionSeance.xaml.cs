@@ -64,6 +64,7 @@ namespace ProjetFinDeSession2024
             {
                 txtblock_erreur.Visibility = Visibility.Collapsed;
                 txtblock_reussi.Visibility = Visibility.Visible;
+                txtblock_reussi.Text = "Suppression réusi";
             }
             else
             {
@@ -80,7 +81,6 @@ namespace ProjetFinDeSession2024
         private void bt_seance_Click(object sender, RoutedEventArgs e)
         {
             bool operation_reussi = SingletonConnexion.getInstance().inscriptionSeance5();
-            Debug.WriteLine("op 1 - " + operation_reussi);
             if (operation_reussi == true && lv_list.SelectedIndex != -1)
             {
                 // Find the GridViewItem corresponding to the selected index
@@ -107,38 +107,43 @@ namespace ProjetFinDeSession2024
                             int seanceId = int.Parse(idText);  // Assuming the TextBlock contains an integer
 
                             // Perform your operation
-                            operation_reussi = SingletonConnexion.getInstance().inscrire(seanceId);
-                            Debug.WriteLine("op 2 - " + operation_reussi + " id=" + seanceId);
+                            int operation_reussi_int = SingletonConnexion.getInstance().inscrire(seanceId);
+                            if (operation_reussi_int == 1)
+                            {
+                                txtblock_erreur.Text = "Vous êtes déja inscrit";
+                                operation_reussi = false;
+                            }
+                            else if (operation_reussi_int == 0)
+                            {
+                                operation_reussi = false;
+                            }
                         }
                         else
                         {
-                            Debug.WriteLine("TextBlock not found.");
+                            //Debug.WriteLine("TextBlock not found.");
                         }
                     }
                     else
                     {
-                        Debug.WriteLine("StackPanel not found.");
+                        //Debug.WriteLine("StackPanel not found.");
                     }
                 }
-                Debug.WriteLine("op 3 - Done");
+            }
+            else
+            {
+                txtblock_erreur.Text = "Vous êtes déja inscrit à 5 activités";
+            }
 
-                /*
-                var selectedStackPanel = lv_list.ContainerFromIndex(lv_list.SelectedIndex) as FrameworkElement;
-                //var selectedStackPanel = lv_list.ContainerFromIndex(lv_list.SelectedIndex) as StackPanel;
-                var idTextBlock = selectedStackPanel?.FindName("the_id_of_seance") as TextBlock;
-
-                Debug.WriteLine("a " + selectedStackPanel);
-                Debug.WriteLine("b " + idTextBlock);
-
-                if (idTextBlock != null)
-                {
-                    string idText = idTextBlock.Text;
-                    int seanceId = int.Parse(idText);
-                    operation_reussi = SingletonConnexion.getInstance().inscrire(seanceId);
-                    Debug.WriteLine("op 2 - " + operation_reussi);
-                }
-                Debug.WriteLine("op 3 - Done");
-                */
+            if (operation_reussi == true)
+            {
+                txtblock_reussi.Visibility = Visibility.Visible;
+                txtblock_erreur.Visibility = Visibility.Collapsed;
+                this.Frame.Navigate(typeof(Page_InscriptionActivite));
+            }
+            else 
+            {
+                txtblock_reussi.Visibility = Visibility.Collapsed;
+                txtblock_erreur.Visibility = Visibility.Visible;
             }
         }
     }

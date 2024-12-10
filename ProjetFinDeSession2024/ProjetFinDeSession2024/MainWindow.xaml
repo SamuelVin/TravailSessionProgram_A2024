@@ -11,11 +11,12 @@
     
     <NavigationView PaneDisplayMode="Left" x:Name="navView" SelectionChanged="navView_SelectionChanged">
         <NavigationView.MenuItems>
-            <NavigationViewItemHeader Content="Gestion des produits"/>
+            <NavigationViewItemHeader Content="Programme d'activités"/>
             <NavigationViewItemSeparator />
             <NavigationViewItem Content="Liste" x:Name="nvAffichage" Icon="List"/>
-            <NavigationViewItem Content="Statistique" x:Name="nvStatistique" Icon="Filter"/>
-            <NavigationViewItem Content="Ajouter" x:Name="nvAjouter" Icon="Add"/>
+            <NavigationViewItem Content="Statistique" x:Name="nvStatistique" Icon="Filter" Visibility="Collapsed"/>
+            <NavigationViewItem Content="Ajouter un adhérent" x:Name="nvAjouter" Icon="Add" Visibility="Collapsed"/>
+            <NavigationViewItem Content="Commentaires" x:Name="nvCommentaire" Icon="Comment"/>
             <NavigationViewItemSeparator />
             <NavigationViewItem Content="Connexion" x:Name="nvConnexion" Icon="Account"/>
         </NavigationView.MenuItems>

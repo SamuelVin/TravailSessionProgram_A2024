@@ -26,8 +26,8 @@
             <TextBlock x:Name="txtblock_aucuneseance" Text="Il n'y a auncune séance" Foreground="#FF5C5C" Margin="0,0,10,0" Visibility="Collapsed"/>
             <Button x:Name="bt_ajouter" Content="Ajouter une séance pour l'activité sélectionnée" Background="#90EE90" Visibility="Collapsed" Click="bt_ajouter_Click"/>
             <Button x:Name="bt_supprimer" Content="Supprimer la séance sélectionnée" Background="#FF5C5C" Margin="10,0,0,0" Visibility="Collapsed" Click="bt_supprimer_Click"/>
-            <TextBlock x:Name="txtblock_erreur" Text="Il y a eu une erreur de suppression" Foreground="#FF5C5C" Visibility="Collapsed"/>
-            <TextBlock x:Name="txtblock_reussi" Text="Suppression réussi" Foreground="#90EE90" Visibility="Collapsed"/>
+            <TextBlock x:Name="txtblock_erreur" Text="Il y a eu une erreur d'inscription" Foreground="#FF5C5C" Margin="10,7,0,0" Visibility="Collapsed"/>
+            <TextBlock x:Name="txtblock_reussi" Text="Inscription réussi" Foreground="#90EE90" Margin="10,7,0,0" Visibility="Collapsed"/>
         </StackPanel>
 
         <ScrollViewer Grid.Row="1" Grid.Column="0">
