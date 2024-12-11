@@ -20,6 +20,8 @@
             <NavigationViewItem Content="Liste" x:Name="nvAffichage" Icon="List"/>
             <NavigationViewItem Content="Statistique" x:Name="nvStatistique" Icon="Filter"/>
             <NavigationViewItem Content="Gestion des adhérant" x:Name="nvGestionAdherent" Icon="Add"/>
+            <NavigationViewItem Content="Gestion des activités" x:Name="nvGestionActivite" Icon="Add"/>
+            <NavigationViewItem Content="Gestion des séances" x:Name="nvGestionSeance" Icon="Add"/>
             <NavigationViewItemSeparator />
         </NavigationView.MenuItems>
 

@@ -3,9 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Design;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 // Samuel Vinette / Créer le 2024-12-27 13:40 / Dernière modification: 2024-12-27 13:57
 
@@ -15,6 +17,7 @@ namespace ProjetFinDeSession2024
     {
         ObservableCollection<Activite> liste;
         static SingletonListe_Activite instance = null;
+        private string messageSQL;
 
         public SingletonListe_Activite()
         {
@@ -83,6 +86,42 @@ namespace ProjetFinDeSession2024
             return liste;
         }
 
+        public ObservableCollection<Activite> Recherche(string rechercheNom)
+        {
+            // Pour ce connecter
+            MySqlConnection con = new MySqlConnection("Server=cours.cegep3r.info;Database=420345ri_gr00002_2260734-samuel-vinette;Uid=2260734;Pwd=2260734;");
+            try
+            {
+                MySqlCommand commande = new MySqlCommand();
+                commande.Connection = con;
+                commande.CommandText = "SELECT * FROM activite WHERE categorie LIKE @recherche";
+                commande.Parameters.Clear();
+                commande.Parameters.AddWithValue("@recherche", $"%{rechercheNom}%");
+                con.Open();
+                MySqlDataReader r = commande.ExecuteReader();
+
+                liste.Clear();
+
+                while (r.Read())
+                {
+                    string nom = r["nom"].ToString();
+                    string categorie = r["categorie"].ToString();
+                    int cout_organisation = int.Parse(r["cout_organisation"].ToString());
+                    int cout_vente = int.Parse(r["cout_vente"].ToString());
+                    liste.Add(new Activite(nom, categorie, cout_organisation, cout_vente));
+                }
+
+                con.Close();
+                r.Close();
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                messageSQL = ex.Message;
+            }
+            return liste;
+        }
+
         // Ajouter equiper
         public bool ajouterActivite(string nom, string categorie, int cout_organisation, int cout_vente)
         {
@@ -113,6 +152,36 @@ namespace ProjetFinDeSession2024
                 return false;
             }
 
+        }
+
+        public void Modifier(Activite activite)
+        {
+            MySqlConnection con = new MySqlConnection("Server=cours.cegep3r.info;Database=420345ri_gr00002_2260734-samuel-vinette;Uid=2260734;Pwd=2260734;");
+            try
+            {
+                MySqlCommand commande = new MySqlCommand();
+                commande.Connection = con;
+                commande.CommandText = "UPDATE activite SET nom = @_nom, categorie = @_categorie, cout_organisation = @_cout_organisation, cout_vente = @_cout_vente WHERE categorie = @_categorie";
+                commande.Parameters.AddWithValue("@_nom", activite.Nom);
+                commande.Parameters.AddWithValue("@_categorie", activite.Categorie);
+                commande.Parameters.AddWithValue("@_cout_organisation", activite.Cout_Organization);
+                commande.Parameters.AddWithValue("@_cout_vente", activite.Cout_Vente);
+                
+                con.Open();
+                commande.Prepare();
+                commande.ExecuteNonQuery();
+                con.Close();
+                commande.Parameters.Clear();
+            }
+            catch (Exception ex)
+            {
+                messageSQL = ex.Message;
+                if (con.State == System.Data.ConnectionState.Open)
+                    con.Close();
+
+
+                Debug.WriteLine($"MySQL Error: {messageSQL} TEST");
+            }
         }
 
         // Supprimer equiper

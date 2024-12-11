@@ -23,7 +23,7 @@ namespace ProjetFinDeSession2024
     /// </summary>
     /// 
 
-    // Samuel Vinette / Créer le 2024-12-27 14:00 / Dernière modification: 2024-12-27 14:32
+    // Samuel Vinette / Créer le 2024-11-27 14:00 / Dernière modification: 2024-11-27 14:32
     public sealed partial class MainWindow : Window
     {
         public MainWindow()
@@ -60,7 +60,7 @@ namespace ProjetFinDeSession2024
                         dialog.PrimaryButtonText = "Confirmer";
                         dialog.CloseButtonText = "Annuler";
                         dialog.Title = "Connexion";
-                        dialog.DefaultButton = ContentDialogButton.Close;
+                        dialog.DefaultButton = ContentDialogButton.Primary;
 
                         ContentDialogResult resultat = await dialog.ShowAsync();
 
@@ -104,6 +104,12 @@ namespace ProjetFinDeSession2024
                     mainFrame.Navigate(typeof(PageAdmin_GestionAdherent));
                     break;
                     ;
+
+                case "nvGestionActivite":
+                    mainFrame.Navigate(typeof(PageAdmin_GestionActivite));
+                    break;
+                    ;
+
                 case "nvAdmin":
                     /*
                     mainFrame.Navigate(typeof(Page_Connexion));
@@ -116,7 +122,7 @@ namespace ProjetFinDeSession2024
                         dialog1.PrimaryButtonText = "Confirmer";
                         dialog1.CloseButtonText = "Annuler";
                         dialog1.Title = "Connexion";
-                        dialog1.DefaultButton = ContentDialogButton.Close;
+                        dialog1.DefaultButton = ContentDialogButton.Primary;
 
                         ContentDialogResult resultat1 = await dialog1.ShowAsync();
 
@@ -160,10 +166,14 @@ namespace ProjetFinDeSession2024
             if (SingletonConnexion.getInstance().isConnected() is true)
             {
                 nvGestionAdherent.Visibility = Visibility.Visible;
+                nvGestionActivite.Visibility = Visibility.Visible;
+                nvGestionSeance.Visibility = Visibility.Visible;
             }
             else
             {
                 nvGestionAdherent.Visibility = Visibility.Collapsed;
+                nvGestionActivite.Visibility = Visibility.Collapsed;
+                nvGestionSeance.Visibility = Visibility.Collapsed;
             }
         }
     }
